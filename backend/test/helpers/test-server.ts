@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import { prismaMock } from './singleton';
 import { BookService } from '../../src/modules/book/book-service';
 import { AuthorService } from '../../src/modules/author/author-service';
+import { SearchService } from '../../src/modules/search/search-service';
 
 /**
  * Creates a test server instance for testing
@@ -32,6 +33,7 @@ export const createTestServer = async (): Promise<FastifyInstance> => {
   // Create services with mocked Prisma client
   const bookService = new BookService(prismaMock);
   const authorService = new AuthorService(prismaMock);
+  const searchService = new SearchService(prismaMock);
 
   // Register custom book routes with the mocked service
   server.register(async (instance) => {
@@ -169,6 +171,24 @@ export const createTestServer = async (): Promise<FastifyInstance> => {
       }
     });
   }, { prefix: '/api/authors' });
+
+  // Register custom search routes with the mocked service
+  server.register(async (instance) => {
+    instance.get('/', async (request, reply) => {
+      try {
+        const { q } = request.query as { q: string };
+        if (q === undefined) {
+          reply.status(400).send({ message: 'Search query parameter "q" is required' });
+          return;
+        }
+        const results = await searchService.search(q);
+        return results;
+      } catch (error) {
+        console.error('Error in GET /api/search:', error);
+        reply.status(500).send({ message: 'Failed to perform search: ' + String(error instanceof Error ? error.message : error) });
+      }
+    });
+  }, { prefix: '/api/search' });
 
   // Health check route
   server.get('/health', async () => {

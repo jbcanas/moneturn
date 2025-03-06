@@ -4,6 +4,7 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import { authorRoutes } from './modules/author/author-routes';
 import { bookRoutes } from './modules/book/book-routes';
+import { searchRoutes } from './modules/search/search-routes';
 import { prismaPlugin } from './plugins/prisma-plugin';
 
 /**
@@ -29,6 +30,7 @@ const createServer = async (): Promise<FastifyInstance> => {
       tags: [
         { name: 'books', description: 'Book related endpoints' },
         { name: 'authors', description: 'Author related endpoints' },
+        { name: 'search', description: 'Search related endpoints' },
       ],
     },
   });
@@ -43,6 +45,7 @@ const createServer = async (): Promise<FastifyInstance> => {
   // Register route modules
   await server.register(authorRoutes, { prefix: '/api/authors' });
   await server.register(bookRoutes, { prefix: '/api/books' });
+  await server.register(searchRoutes, { prefix: '/api/search' });
 
   // Health check route
   server.get('/health', async () => {
