@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="172px" viewBox="0 0 130 172" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Lean UX</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#009966" x="0" y="0" width="130" height="172" rx="5"></rect>
+        <text font-family="Arial-BoldMT, Arial" font-size="20" font-weight="bold" fill="#FFFFFF">
+            <tspan x="30" y="90">LEAN UX</tspan>
+        </text>
+        <text font-family="Arial, Arial" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="25" y="120">Jeff Gothelf</tspan>
+            <tspan x="35" y="140">Josh Seiden</tspan>
+        </text>
+    </g>
+</svg>
